@@ -39,7 +39,7 @@ Extra host powers: **Remove** a participant and **Lock editor** (read-only for e
 
 ```bash
 # 1. Get the code
-git clone https://github.com/<your-username>/codesync.git
+git clone https://github.com/annyasingh24/codesync.git
 cd codesync
 
 # 2. Install the one dependency (ws)

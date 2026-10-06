@@ -113,7 +113,7 @@ codesync/
 
 ---
 
-## 7. How it works (plain English)
+## 7. How it works 
 
 **The big problem - collisions.** If Alice types at the start of the line while Bob types at the end, a message like "insert X at position 10" can land in the wrong place, because Alice's typing already pushed everything right.
 
@@ -160,7 +160,7 @@ Server -> browser
 
 ---
 
-## 9. Known limitations (honest list)
+## 9. Known limitations
 
 * Passcodes travel in plain text over `ws://`. For a real deployment put the server behind HTTPS (`wss://`).
 * Remote edits replace the textarea contents, so the browser's own Undo (Ctrl+Z) history is reset when someone else edits.

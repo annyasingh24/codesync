@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CodeSync</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SCREEN 1: login -->
+  <section id="login" class="login">
+    <div class="card">
+      <h1>CodeSync</h1>
+      <p class="muted">Real-time rooms for code and technical notes.</p>
+
+      <label for="name">Your name</label>
+      <input id="name" maxlength="20" placeholder="e.g. Asha" autocomplete="off" />
+
+      <label for="roomId">Room ID</label>
+      <input id="roomId" maxlength="32" placeholder="e.g. dsa-study-group" autocomplete="off" />
+
+      <label for="passcode">Passcode <span class="muted">(optional)</span></label>
+      <input id="passcode" type="password" maxlength="100" placeholder="leave empty for an open room" autocomplete="off" />
+
+      <div class="row">
+        <button id="createBtn" class="primary">Create room</button>
+        <button id="joinBtn">Join room</button>
+      </div>
+      <p id="loginError" class="error" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: the workspace -->
+  <section id="workspace" class="workspace hidden">
+    <header>
+      <div class="title">
+        <strong id="roomTitle">room</strong>
+        <span id="status" class="pill">connecting</span>
+        <span id="roleBadge" class="pill role"></span>
+      </div>
+      <div class="actions">
+        <span id="cursorInfo" class="muted small"></span>
+        <button id="lockBtn" class="hidden">Lock editor</button>
+        <button id="spamBtn" title="Sends 30 quick updates so you can see the throttle work">Spam test</button>
+        <button id="leaveBtn">Leave</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: editor -->
+      <div class="editor-wrap">
+        <div id="mirror" aria-hidden="true"></div>
+        <textarea id="editor" spellcheck="false" wrap="off" readonly placeholder="Start typing... everyone in the room sees it live."></textarea>
+      </div>
+
+      <!-- RIGHT: people + activity -->
+      <aside>
+        <section class="panel">
+          <h2>Participants <span id="memberCount" class="muted"></span></h2>
+          <ul id="members"></ul>
+        </section>
+        <section class="panel grow">
+          <h2>Activity</h2>
+          <ul id="activity"></ul>
+        </section>
+      </aside>
+    </main>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="ot.js"></script>
+  <script src="syncclient.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

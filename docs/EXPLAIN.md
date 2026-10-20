@@ -85,38 +85,6 @@ Because both use identical font and spacing, the coloured carets line up exactly
 * Drawing the mirror happens at most once per screen refresh (`requestAnimationFrame`).
 * The server never does heavy work: a few string operations per edit.
 
-## 11. Likely viva questions and answers
 
-**Q: What is a WebSocket and why not normal HTTP?**
-A persistent two-way connection. The server can push updates instantly; HTTP would need constant polling.
-
-**Q: How do you avoid data collisions?**
-Operational Transform with a central server: each edit carries the version it was based on; the server adjusts it against the edits accepted since, then applies and broadcasts it in one global order.
-
-**Q: What if two users type at exactly the same position?**
-A fixed tie-break rule (the edit that reached the server earlier goes first), applied identically on server and clients, so all copies match.
-
-**Q: How are passcodes protected?**
-Salted `scrypt` hash; compared with a timing-safe function; checked before admission; the connection is closed after 5 failures.
-
-**Q: How does throttling work?**
-A sliding one-second window of timestamps per connection; the 6th update inside the window is dropped.
-
-**Q: What happens if the host's internet dies?**
-Marked as reconnecting; after 5 seconds the oldest online member becomes host automatically; everyone sees it in the activity feed.
-
-**Q: How do you handle abrupt disconnects?**
-Server heartbeat (ping/pong) removes dead sockets; the browser auto-reconnects with backoff and re-syncs.
-
-**Q: Where is data stored?**
-In memory while running, and in `data/rooms.json` (debounced saves) for persistence. No database was used to keep the project simple.
-
-**Q: What would you improve?**
-HTTPS/WSS, a real database, user accounts, syntax highlighting (e.g. with CodeMirror), remote selection highlighting, and deploying on AWS (EC2 or Elastic Beanstalk, with a load balancer that supports WebSockets).
-
-## 12. Idea for deploying on AWS (optional extra marks)
-
-1. Launch an EC2 instance (Amazon Linux or Ubuntu, free tier).
-2. Install Node.js, clone your repo, run `npm install` and `npm start` (use `pm2` or `systemd` to keep it running).
 3. Open port 3000 in the instance's security group.
 4. Visit `http://<public-ip>:3000`.
